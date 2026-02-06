@@ -1,0 +1,89 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      # Global CORS configuration
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins: "http://localhost:5173"
+            allowed-methods:
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
+            allowed-headers: "*"
+            allow-credentials: true
+            max-age: 3600
+
+      # Route configurations
+      routes:
+        # ============ IAM Service Routes ============
+        
+        # Route 1: Authentication endpoints
+        - id: iam-auth-route
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/v1/auth/**
+          filters:
+            - StripPrefix=0
+
+        # Route 2: Admin user management endpoints
+        - id: iam-admin-users-route
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/v1/admin/**
+          filters:
+            - StripPrefix=0
+
+        # Route 3: Role management endpoints
+        - id: iam-roles-route
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/v1/roles/**
+          filters:
+            - StripPrefix=0
+
+        # Route 4: Permission management endpoints
+        - id: iam-permissions-route
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/v1/permissions/**
+          filters:
+            - StripPrefix=0
+
+        # ============ Car Management Service Routes ============
+        
+        # Route 5: Vehicle management endpoints
+        - id: car-vehicles-route
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/v1/vehicles/**
+          filters:
+            - StripPrefix=0
+
+        # Route 6: Simulator control endpoints
+        - id: car-simulator-route
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/v1/simulator/**
+          filters:
+            - StripPrefix=0
+
+# Disable Eureka (using static URLs instead)
+eureka:
+  client:
+    enabled: false
+
+# Logging
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty: DEBUG
