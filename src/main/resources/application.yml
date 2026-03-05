@@ -77,6 +77,32 @@ spring:
           filters:
             - StripPrefix=0
 
+        # ============ Booking Service Routes ============
+
+        # Route 7: Booking (rental group) endpoints
+        - id: booking-rentals-route
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/bookings/**
+          filters:
+            - StripPrefix=0
+
+        # Route 8: Driver profile endpoints
+        - id: booking-drivers-route
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/drivers/**
+          filters:
+            - StripPrefix=0
+
+        # Route 9: Vehicle proxy (booking-service lấy từ car-management qua Feign)
+        - id: booking-vehicle-proxy-route
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/vehicles/**
+          filters:
+            - StripPrefix=0
+
 # Disable Eureka (using static URLs instead)
 eureka:
   client:
