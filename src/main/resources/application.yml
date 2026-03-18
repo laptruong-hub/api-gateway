@@ -95,7 +95,23 @@ spring:
           filters:
             - StripPrefix=0
 
-        # Route 9: Vehicle proxy (booking-service lấy từ car-management qua Feign)
+        # Route 9: Payment endpoints
+        - id: booking-payments-route
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/payments/**
+          filters:
+            - StripPrefix=0
+
+        # Route 10: Dashboard stats endpoints (booking-service aggregates)
+        - id: booking-dashboard-route
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/dashboard/**
+          filters:
+            - StripPrefix=0
+
+        # Route 10: Vehicle proxy (booking-service lấy từ car-management qua Feign)
         - id: booking-vehicle-proxy-route
           uri: http://localhost:8082
           predicates:
