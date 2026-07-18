@@ -111,6 +111,14 @@ spring:
           filters:
             - StripPrefix=0
 
+        # Route 11: Feedback endpoints
+        - id: booking-feedbacks-route
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/feedbacks/**
+          filters:
+            - StripPrefix=0
+
         # Route 10: Vehicle proxy (booking-service lấy từ car-management qua Feign)
         - id: booking-vehicle-proxy-route
           uri: ${BOOKING_SERVICE_URL:http://localhost:8082}
