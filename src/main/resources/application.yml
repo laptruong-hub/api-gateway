@@ -29,7 +29,7 @@ spring:
         
         # Route 1: Authentication endpoints
         - id: iam-auth-route
-          uri: http://localhost:8080
+          uri: ${IAM_SERVICE_URL:http://localhost:8080}
           predicates:
             - Path=/api/v1/auth/**
           filters:
@@ -37,7 +37,7 @@ spring:
 
         # Route 2: Admin user management endpoints
         - id: iam-admin-users-route
-          uri: http://localhost:8080
+          uri: ${IAM_SERVICE_URL:http://localhost:8080}
           predicates:
             - Path=/api/v1/admin/**
           filters:
@@ -45,7 +45,7 @@ spring:
 
         # Route 3: Role management endpoints
         - id: iam-roles-route
-          uri: http://localhost:8080
+          uri: ${IAM_SERVICE_URL:http://localhost:8080}
           predicates:
             - Path=/api/v1/roles/**
           filters:
@@ -53,7 +53,7 @@ spring:
 
         # Route 4: Permission management endpoints
         - id: iam-permissions-route
-          uri: http://localhost:8080
+          uri: ${IAM_SERVICE_URL:http://localhost:8080}
           predicates:
             - Path=/api/v1/permissions/**
           filters:
@@ -63,7 +63,7 @@ spring:
         
         # Route 5: Vehicle management endpoints
         - id: car-vehicles-route
-          uri: http://localhost:8081
+          uri: ${CAR_MANAGEMENT_SERVICE_URL:http://localhost:8081}
           predicates:
             - Path=/api/v1/vehicles/**
           filters:
@@ -71,7 +71,7 @@ spring:
 
         # Route 6: Simulator control endpoints
         - id: car-simulator-route
-          uri: http://localhost:8081
+          uri: ${CAR_MANAGEMENT_SERVICE_URL:http://localhost:8081}
           predicates:
             - Path=/api/v1/simulator/**
           filters:
@@ -81,7 +81,7 @@ spring:
 
         # Route 7: Booking (rental group) endpoints
         - id: booking-rentals-route
-          uri: http://localhost:8082
+          uri: ${BOOKING_SERVICE_URL:http://localhost:8082}
           predicates:
             - Path=/api/v1/bookings/**
           filters:
@@ -89,7 +89,7 @@ spring:
 
         # Route 8: Driver profile endpoints
         - id: booking-drivers-route
-          uri: http://localhost:8082
+          uri: ${BOOKING_SERVICE_URL:http://localhost:8082}
           predicates:
             - Path=/api/v1/drivers/**
           filters:
@@ -97,7 +97,7 @@ spring:
 
         # Route 9: Payment endpoints
         - id: booking-payments-route
-          uri: http://localhost:8082
+          uri: ${BOOKING_SERVICE_URL:http://localhost:8082}
           predicates:
             - Path=/api/v1/payments/**
           filters:
@@ -105,7 +105,7 @@ spring:
 
         # Route 10: Dashboard stats endpoints (booking-service aggregates)
         - id: booking-dashboard-route
-          uri: http://localhost:8082
+          uri: ${BOOKING_SERVICE_URL:http://localhost:8082}
           predicates:
             - Path=/api/v1/dashboard/**
           filters:
@@ -113,7 +113,7 @@ spring:
 
         # Route 10: Vehicle proxy (booking-service lấy từ car-management qua Feign)
         - id: booking-vehicle-proxy-route
-          uri: http://localhost:8082
+          uri: ${BOOKING_SERVICE_URL:http://localhost:8082}
           predicates:
             - Path=/api/v1/vehicles/**
           filters:
