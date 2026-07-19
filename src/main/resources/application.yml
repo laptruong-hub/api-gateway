@@ -113,7 +113,7 @@ spring:
 
         # Route 11: Feedback endpoints
         - id: booking-feedbacks-route
-          uri: http://localhost:8082
+          uri: ${BOOKING_SERVICE_URL:http://localhost:8082}
           predicates:
             - Path=/api/v1/feedbacks/**
           filters:
